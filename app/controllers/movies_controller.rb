@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   def index
     @all_ratings =  Movie.distinct.pluck(:rating)
     
-    #@movies = Movie.all
+    @movies = Movie.all
     @sort_by = params[:sort_by]
     @current_ratings = params[:ratings]
 
