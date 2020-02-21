@@ -12,19 +12,19 @@ class MoviesController < ApplicationController
 
   def index
     
-    @all_ratings = Movie.ratings
+    @all_ratings = Movie.all_ratings
     @sort_by = params[:sort_by] || session[:sort_by]
     
-    session[:ratings] = session[:ratings].keys || @all_ratings
+    session[:ratings] = session[:ratings] || @all_ratings
     
     #params[:ratings].nil? ? @t_param = @all_ratings : @t_param = params[:ratings].keys   
     
-    @t_param = params[:ratings].keys || session[:ratings]
+    @t_param = params[:ratings] || session[:ratings]
     
     session[:sort_by] = @sort_by
     session[:ratings] = @t_param
     
-    @movies = Movie.where(rating: session[:ratings]).order(session[:sort_by])
+    @movies = Movie.where(rating: session[:ratings].keys).order(session[:sort_by])
     
     if (params[:sort_by].nil? and !(session[:sort_by].nil?)) or (params[:ratings].nil? and !(session[:ratings].nil?))
       flash.keep
